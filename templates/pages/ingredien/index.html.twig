@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SymRecipe - Mes Ingrédients{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+      {% if not ingredien.items is same as([]) %}
+        <h1>Mes ingrédients</h1>
+
+        <a href="{{ path('ingredien.new') }}" class="btn btn-primary">
+              Créer un ingrédient
+        </a>
+
+
+         {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-4">
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        <div class="count mt-4">
+            Il y a 
+           {{ ingredien.getTotalItemCount }}
+            ingrédients
+
+        </div>
+
+        <table class="table table-hover">
+  <thead>
+              <tr>
+                   <th scope="col">Numéro</th>
+                   <th scope="col">Nom</th>
+                   <th scope="col">Prix</th>
+                   <th scope="col">Date de création</th>
+                    <th scope="col">Edition</th>
+                    <th scope="col">Suppression</th>
+             </tr>
+  </thead>
+  <tbody>
+
+  
+    {% for ingredien in ingredien %}
+              <tr class="table-primary">
+                 <th scope="row">{{ ingredien.id }}</th>
+                    <td>{{ ingredien.name }}</td>
+                    <td>{{ ingredien.price }}</td>
+                    <td>{{ ingredien.createdAt |date('d/m/Y')}}</td>
+                    <td>
+                        <a href="{{ path('ingredien.edit', {id: ingredien.id}) }}" class="btn btn-info">Modifier</a>
+                    </td>
+                    <td>
+                          <a href="{{ path('ingredien.delete', {id: ingredien.id}) }}" class="btn btn-warning">Supprimer</a>  
+                    </td>
+             </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+        <div class="navigation d-flex justify-content-center mt-4">
+           {{ knp_pagination_render(ingredien) }}
+        </div>
+    {% else %}
+      <h4>Il n y a pas d'ingrédients </h4>
+    {% endif %}
+
+    </div>
+{% endblock %}
