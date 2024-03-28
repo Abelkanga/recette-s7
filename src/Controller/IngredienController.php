@@ -7,110 +7,101 @@ use App\Repository\IngredienRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\Ingredien;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IngredienController extends AbstractController
 {
+    // Route pour afficher la liste des ingrédients
     #[Route('/ingredien', name: 'ingredien.index', methods: ['GET'])]
     public function index(IngredienRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+        // Paginer les ingrédients récupérés pour afficher un nombre limité par page
         $ingredien = $paginator->paginate(
-            $repository->findAll(),
+            $repository->findBy(['user' => $this->getUser()]),
             $request->query->getInt('page', 1),
             10 
         );
 
-         return $this->render('pages/ingredien/index.html.twig', [
+        // Rendre le template d'affichage de la liste des ingrédients
+        return $this->render('pages/ingredien/index.html.twig', [
             'ingredien' => $ingredien
         ]);
     }
 
-     #[Route('/ingredien/nouveau', name: 'ingredien.new', methods: ['GET', 'POST'])]
-     public function new(Request $request, EntityManagerInterface $manager): Response
-     {
-         $ingredien = new Ingredien();
-         $form = $this->createForm(IngredienType::class, $ingredien);
+    // Route pour créer un nouvel ingrédient
+    #[Route('/ingredien/nouveau', name: 'ingredien.new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $manager): Response
+    {
+        // Créer un nouveau formulaire pour l'ingrédient
+        $ingredien = new Ingredien();
+        $form = $this->createForm(IngredienType::class, $ingredien);
+    
+        // Gérer la soumission du formulaire et sauvegarder l'ingrédient
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ingredien = $form->getData();
+            $ingredien->setUser($this->getUser());
+            $manager->persist($ingredien); 
+            $manager->flush(); 
      
-         $form->handleRequest($request);
-         if ($form->isSubmitted() && $form->isValid()) {
-             $manager->persist($ingredien); 
-             $manager->flush(); 
-     
-             $this->addFlash(
+            $this->addFlash(
                  'success',
                  'Votre ingrédient a bien été créé !'
-             );
-     
-             return $this->redirectToRoute('ingredien.index');
-         }
-     
-         return $this->render('pages/ingredien/new.html.twig', [
-             'form' => $form->createView()
-         ]);
-     }
-
-   
-      /**
-     * This controller allow us to edit a new ingredien
-     * 
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @return Response
-     * 
-     */
-
-     #[Route('/ingredien/edition/{id}', name: 'ingredien.edit', methods: ['GET', 'POST'])]
-     
-   
-public function edit(Ingredien $ingredien, Request $request, EntityManagerInterface $manager): Response
-{
-    $form = $this->createForm(IngredienType::class, $ingredien);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
- 
-        $manager->persist($ingredien);
-        $manager->flush();
-
-        $this->addFlash(
-            'success',
-            'Votre ingrédient a été modifié avec succès !'
-        );
-
-        return $this->redirectToRoute('ingredien.index');
+            );
+            return $this->redirectToRoute('ingredien.index');
+        }
+    
+        // Afficher le formulaire de création d'ingrédient
+        return $this->render('pages/ingredien/new.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
-    return $this->render('pages/ingredien/edit.html.twig', [
-        'form' => $form->createView()
-    ]);
-}
-
-
-    
-
-    /**
-     * This controller allows us to delete an ingredien
-     * 
-     * @param EntityManagerInterface $manager
-     * @param Ingredien $ingredien
-     * @return Response
-     */
-    #[Route('/ingredien/suppression/{id}', name : 'ingredien.delete', methods: ['GET'])]
-    public function delete(EntityManagerInterface $manager, Ingredien $ingredien) : Response
+    // Route pour éditer un ingrédient existant
+    #[Route('/ingredien/edition/{id}', name: 'ingredien.edit', methods: ['GET', 'POST'])]
+    public function edit(Ingredien $ingredien, Request $request, EntityManagerInterface $manager): Response
     {
-       
+        // Créer un formulaire pour l'édition de l'ingrédient existant
+        $form = $this->createForm(IngredienType::class, $ingredien);
+        $form->handleRequest($request);
+
+        // Gérer la soumission du formulaire et sauvegarder les modifications
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($ingredien);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre ingrédient a été modifié avec succès !'
+            );
+
+            return $this->redirectToRoute('ingredien.index');
+        }
+
+        // Afficher le formulaire d'édition de l'ingrédient
+        return $this->render('pages/ingredien/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    // Route pour supprimer un ingrédient
+    #[Route('/ingredien/suppression/{id}', name: 'ingredien.delete', methods: ['GET'])]
+    public function delete(EntityManagerInterface $manager, Ingredien $ingredien): Response
+    {
+        // Supprimer l'ingrédient de la base de données
         $manager->remove($ingredien);
         $manager->flush();
 
+        // Rediriger vers la liste des ingrédients avec un message de succès
         $this->addFlash(
             'success',
             'Votre ingrédient a été supprimé avec succès !'
         );
         return $this->redirectToRoute('ingredien.index');
-
     }
 }
+
+

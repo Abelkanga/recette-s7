@@ -5,40 +5,39 @@ namespace App\Form;
 use App\Entity\Ingredien;
 use App\Entity\Recipe;
 use App\Repository\IngredienRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\RangeType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType; // Type de champ pour les entités Doctrine
+use Symfony\Component\Form\AbstractType; // Classe abstraite pour la création de formulaires
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType; // Type de champ pour une case à cocher
+use Symfony\Component\Form\Extension\Core\Type\IntegerType; // Type de champ pour un nombre entier
+use Symfony\Component\Form\Extension\Core\Type\MoneyType; // Type de champ pour un montant monétaire
+use Symfony\Component\Form\Extension\Core\Type\RangeType; // Type de champ pour une plage de valeurs
+use Symfony\Component\Form\Extension\Core\Type\SubmitType; // Type de champ pour un bouton de soumission
+use Symfony\Component\Form\Extension\Core\Type\TextareaType; // Type de champ pour un champ de texte multiligne
+use Symfony\Component\Form\Extension\Core\Type\TextType; // Type de champ pour un champ de texte
+use Symfony\Component\Form\FormBuilderInterface; // Interface pour la construction de formulaires
+use Symfony\Component\OptionsResolver\OptionsResolver; // Classe pour la configuration des options des formulaires
+use Symfony\Component\Validator\Constraints as Assert; // Contraintes de validation
 
 class RecipeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('name', TextType::class, [
-            'attr' => [
-                'class' => 'form-control',
-                'minlength' => '2',
-                'maxlength' => '50'
-            ],
-            'label' => 'Nom',
-            'label_attr' => [
-                'class' => 'form-label mt-4'
-            ],
-            'constraints' => [
-                new Assert\Length(['min' => 2, 'max' => 50]),
-                new Assert\NotBlank()
-            ]
-        ])
+            ->add('name', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlength' => '2',
+                    'maxlength' => '50'
+                ],
+                'label' => 'Nom',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'constraints' => [
+                    new Assert\Length(['min' => 2, 'max' => 50]),
+                    new Assert\NotBlank()
+                ]
+            ])
             ->add('time', IntegerType::class, [
                 'attr' => [
                     'class' => 'form-control',
@@ -107,7 +106,6 @@ class RecipeType extends AbstractType
                  
                 ],
                 'required' => false,
-
                 'label' => 'Prix',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
@@ -132,33 +130,31 @@ class RecipeType extends AbstractType
                 ]
             ])
             ->add('ingredien', EntityType::class, [
-                
-                'class' => Ingredien::class,
-                'query_builder' => function (IngredienRepository $r) {
+                'class' => Ingredien::class, // Entité liée au champ
+                'query_builder' => function (IngredienRepository $r) { // Constructeur de requête pour récupérer les ingrédients
                     return $r->createQueryBuilder('i')
-                        ->orderBy('i.name', 'ASC');
+                        ->orderBy('i.name', 'ASC'); // Tri par ordre alphabétique des noms d'ingrédients
                 },
-                'label' => 'Les ingrédients',
+                'label' => 'Les ingrédients', // Étiquette du champ
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
+                'choice_label' => 'name', // Propriété de l'entité à afficher dans la liste déroulante
+                'multiple' => true, // Permet la sélection multiple
+                'expanded' => true, // Affiche les options sous forme de cases à cocher
             ])
             ->add('submit', SubmitType::class , [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ],
-                'label' => 'Créer ma recette'
-            ])
-        ;
+                'label' => 'Créer ma recette' // Étiquette du bouton de soumission
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Recipe::class,
+            'data_class' => Recipe::class, // Classe de l'objet associé au formulaire
         ]);
         
     }
