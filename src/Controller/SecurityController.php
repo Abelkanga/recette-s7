@@ -8,8 +8,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 
 class SecurityController extends AbstractController
 {
@@ -31,10 +33,12 @@ class SecurityController extends AbstractController
         // Rien à faire ici, Symfony s'occupe de la déconnexion automatiquement
     }
 
+    
     // Route pour afficher le formulaire d'inscription et traiter la création de compte
     #[Route('/inscription', name: 'security.registration', methods: ['GET', 'POST'])]
-    public function registration(Request $request, EntityManagerInterface $manager): Response
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
+        
         // Créer un nouvel utilisateur avec le rôle par défaut "ROLES_USER"
         $user = new User();
         $user->setRoles(['ROLES_USER']);
@@ -45,7 +49,10 @@ class SecurityController extends AbstractController
         // Traiter la soumission du formulaire et enregistrer l'utilisateur
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
+            $plainPassword = $user->getPassword();
+            // dd($plainPassword);
+            $hashPassword = $userPasswordHasherInterface->hashPassword($user,$plainPassword);
+            $user->setPassword($hashPassword);
             $this->addFlash(
                 'success',
                 'Votre compte a bien été créé.'

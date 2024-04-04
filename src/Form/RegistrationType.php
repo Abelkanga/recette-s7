@@ -13,6 +13,9 @@ use Symfony\Component\Form\FormBuilderInterface; // Interface pour la constructi
 use Symfony\Component\OptionsResolver\OptionsResolver; // Classe pour la configuration des options des formulaires
 use Symfony\Component\Validator\Constraints as Assert; // Contraintes de validation
 
+
+
+
 class RegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

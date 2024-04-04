@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\RecipeRepository;
+use App\Entity\Ingredien;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,9 +11,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
 
 #[UniqueEntity('name')]
 #[ORM\HasLifecycleCallbacks]
@@ -60,7 +59,7 @@ class Recipe
     private ?bool $isFavorite = null;
 
     #[ORM\Column]
-    private ?bool $isPublic = null;
+    private ?bool $isPublic = false;
 
     #[ORM\Column]
     #[Assert\NotNull()]
@@ -71,7 +70,7 @@ class Recipe
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Ingredien::class)]
-    private Collection $ingredien;
+    private Collection $ingrediens;
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     #[ORM\JoinColumn(nullable: false)]
@@ -86,7 +85,7 @@ class Recipe
 
     public function __construct()
     {
-        $this->ingredien = new ArrayCollection();
+        $this->ingrediens = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = new DateTimeImmutable();
         $this->marks = new ArrayCollection();
@@ -230,13 +229,13 @@ class Recipe
      */
     public function getIngredien(): Collection
     {
-        return $this->ingredien;
+        return $this->ingrediens;
     }
 
     public function addIngredien(Ingredien $ingredien): static
     {
-        if (!$this->ingredien->contains($ingredien)) {
-            $this->ingredien->add($ingredien);
+        if (!$this->ingrediens->contains($ingredien)) {
+            $this->ingrediens->add($ingredien);
         }
 
         return $this;
@@ -244,7 +243,7 @@ class Recipe
 
     public function removeIngredien(Ingredien $ingredien): static
     {
-        $this->ingredien->removeElement($ingredien);
+        $this->ingrediens->removeElement($ingredien);
 
         return $this;
     }

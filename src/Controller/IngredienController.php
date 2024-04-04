@@ -39,14 +39,15 @@ class IngredienController extends AbstractController
         // Créer un nouveau formulaire pour l'ingrédient
         $ingredien = new Ingredien();
         $form = $this->createForm(IngredienType::class, $ingredien);
+        $form->handleRequest($request);
     
         // Gérer la soumission du formulaire et sauvegarder l'ingrédient
         if ($form->isSubmitted() && $form->isValid()) {
-            $ingredien = $form->getData();
-            $ingredien->setUser($this->getUser());
+            $user = $this->getUser();
+            $ingredien->setUser($user);
             $manager->persist($ingredien); 
+
             $manager->flush(); 
-     
             $this->addFlash(
                  'success',
                  'Votre ingrédient a bien été créé !'

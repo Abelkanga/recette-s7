@@ -1,5 +1,9 @@
-{# <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark"> <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> #}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #808080;">
+
+
+{# <nav class="navbar navbar-expand-lg navbar-light bg-light"> #}
 
 
   <div class="container-fluid">
@@ -17,12 +21,13 @@
           </a>
           </li>
 
+
     {% if app.user %}
               <li class="nav-item">
           <a class="nav-link" href="{{ path('ingredien.index')}}">Mes Ingrédients</a>
           </li>
           <li class="nav-item">
-          <a class="nav-link" href="{{ path('recipe.index')}}">Mes recettes</a>
+          <a class="nav-link" href="{{ path('recipe_index')}}">Mes recettes</a>
         </li>
     {% endif %}
       </ul>
@@ -33,12 +38,12 @@
          {%if app.user %}
 
             <li class="nav-item dropdown" style="margin-right: 5rem;">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> {{ app.user.fullName}}</a>
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> {{ app.user.getFullName}}</a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="#">Modifier mes informations</a>
               <a class="dropdown-item" href="#">Modifier mon mot de passe</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Déconnexion</a>
+              <a class="dropdown-item" href="{{ path('security.logout')}}">Déconnexion</a>
             
             </div>
           </li>
