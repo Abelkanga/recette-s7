@@ -2,21 +2,23 @@
 
 namespace App\Controller;
 
+use App\Entity\Ingredien;
 use App\Form\IngredienType;
 use App\Repository\IngredienRepository;
-use Knp\Component\Pager\PaginatorInterface;
-use App\Entity\Ingredien;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class IngredienController extends AbstractController
 {
     // Route pour afficher la liste des ingrédients
     #[Route('/ingredien', name: 'ingredien.index', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(IngredienRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         // Paginer les ingrédients récupérés pour afficher un nombre limité par page
