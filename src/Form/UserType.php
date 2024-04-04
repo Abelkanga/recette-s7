@@ -3,12 +3,13 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Symfony\Component\Form\AbstractType; // Classe abstraite pour la création de formulaires
-use Symfony\Component\Form\Extension\Core\Type\SubmitType; // Type de champ pour un bouton de soumission
-use Symfony\Component\Form\Extension\Core\Type\TextType; // Type de champ pour un champ de texte
-use Symfony\Component\Form\FormBuilderInterface; // Interface pour la construction de formulaires
-use Symfony\Component\OptionsResolver\OptionsResolver; // Classe pour la configuration des options des formulaires
-use Symfony\Component\Validator\Constraints as Assert; // Contraintes de validation
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface; 
+use Symfony\Component\OptionsResolver\OptionsResolver; 
+use Symfony\Component\Validator\Constraints as Assert; 
 
 class UserType extends AbstractType
 {
@@ -44,6 +45,15 @@ class UserType extends AbstractType
                 'constraints' => [
                     new Assert\NotBlank(), // Contrainte : le champ ne doit pas être vide
                     new Assert\Length(['min' => 2, 'max' => 50]) // Contrainte : longueur minimale et maximale du champ
+                ]
+            ])
+            ->add('plainPassword', PasswordType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Mot de passe',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
                 ]
             ])
             ->add('submit', SubmitType::class, [

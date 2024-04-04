@@ -3,15 +3,15 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Symfony\Component\Form\AbstractType; // Classe abstraite pour la création de formulaires
-use Symfony\Component\Form\Extension\Core\Type\EmailType; // Type de champ pour une adresse email
-use Symfony\Component\Form\Extension\Core\Type\PasswordType; // Type de champ pour un mot de passe
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType; // Type de champ pour la répétition d'un champ
-use Symfony\Component\Form\Extension\Core\Type\SubmitType; // Type de champ pour un bouton de soumission
-use Symfony\Component\Form\Extension\Core\Type\TextType; // Type de champ pour un champ de texte
-use Symfony\Component\Form\FormBuilderInterface; // Interface pour la construction de formulaires
-use Symfony\Component\OptionsResolver\OptionsResolver; // Classe pour la configuration des options des formulaires
-use Symfony\Component\Validator\Constraints as Assert; // Contraintes de validation
+use Symfony\Component\Form\AbstractType; 
+use Symfony\Component\Form\Extension\Core\Type\EmailType; 
+use Symfony\Component\Form\Extension\Core\Type\PasswordType; 
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType; 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType; 
+use Symfony\Component\Form\Extension\Core\Type\TextType; 
+use Symfony\Component\Form\FormBuilderInterface; 
+use Symfony\Component\OptionsResolver\OptionsResolver; 
+use Symfony\Component\Validator\Constraints as Assert; 
 
 
 
