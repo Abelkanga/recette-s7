@@ -43,10 +43,6 @@ class RegistrationType extends AbstractType
                     'maxlength' => '50',
                 ],
                 'required' => false,
-                'label' => 'Pseudo (Facultatif)',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
-                ],
                 'constraints' => [
                     new Assert\Length(['min' => 2, 'max' => 50])
                 ]
@@ -56,10 +52,6 @@ class RegistrationType extends AbstractType
                     'class' => 'form-control',
                     'minlength' => '2',
                     'maxlength' => '180',
-                ],
-                'label' => 'Adresse email',
-                'label_attr' => [
-                    'class' => 'form-label mt-4'
                 ],
                 'constraints' => [
                     new Assert\NotBlank(),
@@ -75,7 +67,7 @@ class RegistrationType extends AbstractType
                     ],
                     'label' => 'Mot de passe',
                     'label_attr' => [
-                        'class' => 'form-label mt-4'
+                        'class' => 'form-label'
                     ]
                 ],
                 'second_options' => [
@@ -88,13 +80,8 @@ class RegistrationType extends AbstractType
                     ]
                 ],
                 'invalid_message' => 'Les mots de passe ne correspondent pas.', // Message affiché en cas de non-correspondance des mots de passe
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'S\'inscrire', // Étiquette du bouton de soumission
-                'attr' => [
-                    'class' => 'btn btn-primary mt-4' // Attributs HTML pour le bouton de soumission
-                ]
             ]);
+           
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 // Définition du formulaire IngredienType
 class IngredienType extends AbstractType
 {
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         // Ajout des champs du formulaire
@@ -55,6 +56,7 @@ class IngredienType extends AbstractType
         ;
     }
 
+    
     public function configureOptions(OptionsResolver $resolver): void
     {
         // Configuration par défaut du formulaire

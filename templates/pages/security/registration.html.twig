@@ -1,26 +1,85 @@
-
 {% extends "base.html.twig" %}
 
 {% block title %}
-    SymRecipe - Inscription
+	SymRecipe - Inscription
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="mt-4">Formulaire d'inscription</h1>
+	<div class="container mt-4">
 
-        <form method="post">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-      
-            {{ form_end(form) }}
-        </form>
-        
-        
-    </div>
+		{{ form_start(form) }}
+		<!-- Section: Design Block -->
+		<section
+			class="">
+			<!-- Jumbotron -->
+			<div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+				<div class="container">
+					<div class="row gx-lg-5 align-items-center">
+						<div class="col-lg-6 mb-5 mb-lg-0">
+							<h1 class="my-5 display-3 fw-bold ls-tight">
+								Les meilleures
+								<br/>
+								<span class="text-primary">Recettes</span>
+							</h1>
+							<p style="color: hsl(217, 10%, 50.8%)"></p>
+						</div>
+
+						<div class="col-lg-6 mb-5 mb-lg-0">
+							<div class="card">
+								<div
+									class="card-body py-5 px-md-5">
+									<!-- 2 column grid layout with text inputs for the first and last names -->
+									<div class="row">
+										<div class="col-md-6 mb-4">
+											<div data-mdb-input-init class="form-outline">
+												<label class="form-label" for="form3Example1">Nom & Prénoms</label>
+												{{ form_widget(form.fullName) }}
+											</div>
+										</div>
+										<div class="col-md-6 mb-4">
+											<div data-mdb-input-init class="form-outline">
+												<label class="form-label" for="form3Example2">Pseudo</label>
+												{{ form_widget(form.pseudo) }}
+											</div>
+										</div>
+									</div>
+
+									<!-- Email input -->
+									<div data-mdb-input-init class="form-outline mb-4">
+										<label class="form-label" for="form3Example3">Adresse Email</label>
+										{{ form_widget(form.email) }}
+									</div>
+
+									<!-- Password input -->
+									<div data-mdb-input-init class="form-outline mb-4">
+										{{ form_widget(form.plainPassword) }}
+									</div>
+
+									<!-- Register buttons -->
+									<div
+										class="text-center">
+										<!-- Submit button -->
+										<button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
+											S'inscrire
+										</button>
+
+										<!-- Submit button -->
+										<a data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-block mb-4 text-light" href="{{ path('security_login') }}">
+											Retour
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Jumbotron -->
+		</section>
+		<!-- Section: Design Block -->
+		{{ form_end(form) }}
+
+	</div>
+
+
 {% endblock %}
-
-
-
-
-

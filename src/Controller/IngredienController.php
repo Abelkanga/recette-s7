@@ -14,10 +14,11 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 class IngredienController extends AbstractController
 {
     // Route pour afficher la liste des ingrédients
-    #[Route('/ingredien', name: 'ingredien.index', methods: ['GET'])]
+    #[Route('/ingredien', name: 'ingredien_index', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
     public function index(IngredienRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -35,7 +36,7 @@ class IngredienController extends AbstractController
     }
 
     // Route pour créer un nouvel ingrédient
-    #[Route('/ingredien/nouveau', name: 'ingredien.new', methods: ['GET', 'POST'])]
+    #[Route('/ingredien/nouveau', name: 'ingredien_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
         // Créer un nouveau formulaire pour l'ingrédient
@@ -54,7 +55,7 @@ class IngredienController extends AbstractController
                  'success',
                  'Votre ingrédient a bien été créé !'
             );
-            return $this->redirectToRoute('ingredien.index');
+            return $this->redirectToRoute('ingredien_index');
         }
     
         // Afficher le formulaire de création d'ingrédient
@@ -64,7 +65,7 @@ class IngredienController extends AbstractController
     }
 
     // Route pour éditer un ingrédient existant
-    #[Route('/ingredien/edition/{id}', name: 'ingredien.edit', methods: ['GET', 'POST'])]
+    #[Route('/ingredien/edition/{id}', name: 'ingredien_edit', methods: ['GET', 'POST'])]
     public function edit(Ingredien $ingredien, Request $request, EntityManagerInterface $manager): Response
     {
         // Créer un formulaire pour l'édition de l'ingrédient existant
@@ -81,7 +82,7 @@ class IngredienController extends AbstractController
                 'Votre ingrédient a été modifié avec succès !'
             );
 
-            return $this->redirectToRoute('ingredien.index');
+            return $this->redirectToRoute('ingredien_index');
         }
 
         // Afficher le formulaire d'édition de l'ingrédient
@@ -91,7 +92,7 @@ class IngredienController extends AbstractController
     }
 
     // Route pour supprimer un ingrédient
-    #[Route('/ingredien/suppression/{id}', name: 'ingredien.delete', methods: ['GET'])]
+    #[Route('/ingredien/suppression/{id}', name: 'ingredien_delete', methods: ['GET'])]
     public function delete(EntityManagerInterface $manager, Ingredien $ingredien): Response
     {
         // Supprimer l'ingrédient de la base de données
@@ -103,7 +104,7 @@ class IngredienController extends AbstractController
             'success',
             'Votre ingrédient a été supprimé avec succès !'
         );
-        return $this->redirectToRoute('ingredien.index');
+        return $this->redirectToRoute('ingredien_index');
     }
 }
 

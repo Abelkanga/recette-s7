@@ -16,9 +16,16 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     // Route pour afficher le formulaire de connexion
-    #[Route('/connexion', name: 'security.login', methods:['GET', 'POST'])]
+    #[Route('/', name: 'security_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($user) {
+            flash()->addSuccess('Bienvenue  monsieur ' . $user->getFullName());
+            return $this->redirectToRoute('home_index');
+        }
+
         // Rendre le template d'affichage du formulaire de connexion
         return $this->render('pages/security/login.html.twig', [
             'last_username' => $authenticationUtils->getLastUsername(),
@@ -27,18 +34,18 @@ class SecurityController extends AbstractController
     }
 
     // Route pour gérer la déconnexion de l'utilisateur
-    #[Route('/deconnexion', name: 'security.logout')]
+    #[Route('/deconnexion', name: 'security_logout')]
     public function logout()
     {
         // Rien à faire ici, Symfony s'occupe de la déconnexion automatiquement
     }
 
-    
+
     // Route pour afficher le formulaire d'inscription et traiter la création de compte
-    #[Route('/inscription', name: 'security.registration', methods: ['GET', 'POST'])]
+    #[Route('/inscription', name: 'security_registration', methods: ['GET', 'POST'])]
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
-        
+
         // Créer un nouvel utilisateur avec le rôle par défaut "ROLES_USER"
         $user = new User();
         $user->setRoles(['ROLES_USER']);
@@ -51,22 +58,19 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $plainPassword = $user->getPassword();
             // dd($plainPassword);
-            $hashPassword = $userPasswordHasherInterface->hashPassword($user,$plainPassword);
+            $hashPassword = $userPasswordHasherInterface->hashPassword($user, $plainPassword);
             $user->setPassword($hashPassword);
-            $this->addFlash(
-                'success',
-                'Votre compte a bien été créé.'
-            );
             $manager->persist($user);
             $manager->flush();
 
+            flash()->addSuccess('Votre compte a été créé avec succès. ');
             // Rediriger vers la page de connexion après la création du compte
-            return $this->redirectToRoute('security.login');
+            return $this->redirectToRoute('security_login');
         }
 
         // Rendre le template d'affichage du formulaire d'inscription
         return $this->render('pages/security/registration.html.twig', [
-            'form' => $form->createView()
+            'form' => $form
         ]);
     }
 }
