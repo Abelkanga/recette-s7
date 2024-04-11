@@ -3,34 +3,52 @@
 {% block title %}SymRecipe - Nouveau ingrédient{% endblock %}
 
 {% block body %}
-  <div class="container">
-    <div class="row justify-content-center">  <div class="col-md-6">  <h1 class="mt-4">Création d'un ingrédient</h1>
+<div class="container mt-4">
+  <div class="card border shadow-sm p-2 w-50 mx-auto" style="background-color: #f5f5f5;">
+    <div class="row justify-content-center">
+      <div class="col">
+        <h1 class="mt-4 text-center titre-ingredient">Création d'un ingrédient</h1>
 
-        {{ form_start(form) }} 
+        {{ form_start(form) }}
 
-          <div class="form-group">
-            {{ form_label(form.name) }}
-            {{ form_widget(form.name) }}
-            <div class="form-error">
-              {{ form_errors(form.name)}}
-            </div>
+        <div class="form-group">
+          {{ form_label(form.name, 'Nom') }}
+          {{ form_widget(form.name, {'class': 'form-control'}) }}
+          <div class="form-error">
+            {{ form_errors(form.name) }}
           </div>
+        </div>
 
-          <div class="form-group">
-            {{ form_label(form.price) }}
-            {{ form_widget(form.price) }}
-            <div class="form-error">
-              {{ form_errors(form.price)}}
-            </div>
+        <div class="form-group">
+          {{ form_label(form.price, 'Prix') }}
+          {{ form_widget(form.price, {'class': 'form-control'}) }}
+          <div class="form-error">
+            {{ form_errors(form.price) }}
           </div>
+        </div>
 
-          <div class="form-group">
-            {{ form_row(form.submit) }}
-          </div>
+        <div class="form-group text-center">
+          {{ form_row(form.submit, {'class': 'btn btn-primary'}) }}
+        </div>
 
-        {{ form_end(form)}}
-
+        {{ form_end(form) }}
       </div>
     </div>
   </div>
+</div>
+
+{% block stylesheets %}
+  <style>
+    .titre-ingredient {
+      /* Base styles for the h1 */
+      font-family: Arial, sans-serif;
+      font-size: 2rem; /* Adjust font size as needed */
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+
+      /* Additional styling options (uncomment as desired) */
+      /* margin-bottom: 1rem;  */  /* border-bottom: 1px solid #ddd;  */  }
+  </style>
+{% endblock %}
 {% endblock %}

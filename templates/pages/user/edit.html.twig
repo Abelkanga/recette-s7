@@ -2,19 +2,52 @@
 
 {% block title %} SymRecipe - Modification de l'utilisateur{% endblock %}
 
+{% block stylesheets %}
+  <style>
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .card-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-control {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+    }
+    .btn-primary {
+      background-color: #337ab7;
+      border-color: #286090;
+    }
+  </style>
+{% endblock %}
+
 {% block body %}
-<div class="container">
+<div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h1 class="mt-4">Formulaire de modification des informations de l'utilisateur</h1>
-
-      {% for message in app.flashes('warning') %}
-        <div class="alert alert-warning mt-4">
-          {{ message }}
+      <div class="card">
+        <div class="card-header">
+          <h1 class="card-title">Formulaire de modification des informations de l'utilisateur</h1>
         </div>
-      {% endfor %}
+        <div class="card-body">
+          {% for message in app.flashes('warning') %}
+            <div class="alert alert-warning">
+              {{ message }}
+            </div>
+          {% endfor %}
 
-      {{ form(form)}}
+          {{ form(form) }}
+        </div>
+      </div>
     </div>
   </div>
 </div>

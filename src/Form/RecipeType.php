@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType; // Type de champ pour u
 use Symfony\Component\Form\FormBuilderInterface; // Interface pour la construction de formulaires
 use Symfony\Component\OptionsResolver\OptionsResolver; // Classe pour la configuration des options des formulaires
 use Symfony\Component\Validator\Constraints as Assert; // Contraintes de validation
-
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RecipeType extends AbstractType
 {
@@ -130,6 +130,12 @@ class RecipeType extends AbstractType
                     new Assert\NotNull()
                 ]
             ])
+            ->add('imageFile', VichImageType::class, [
+                'label'=> 'Image de la recette',
+                'label_attr' => [
+                    'class'=> 'form-label mt-4'
+                ],
+            ])
             ->add('ingredien', EntityType::class, [
                 'class' => Ingredien::class, // Entité liée au champ
                 'query_builder' => function (IngredienRepository $r) { // Constructeur de requête pour récupérer les ingrédients
@@ -150,6 +156,7 @@ class RecipeType extends AbstractType
                 ],
                 'label' => 'Créer ma recette' // Étiquette du bouton de soumission
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

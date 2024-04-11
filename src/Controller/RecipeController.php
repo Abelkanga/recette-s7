@@ -4,16 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Mark;
 use App\Entity\Recipe;
-use App\Repository\RecipeRepository;
-use Knp\Component\Pager\PaginatorInterface;
-use App\Form\RecipeType;
 use App\Form\MarkType;
+use App\Form\RecipeType;
 use App\Repository\MarkRepository;
+use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route; 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/recette', name: 'recipe_')]
 class RecipeController extends AbstractController
@@ -67,6 +68,7 @@ class RecipeController extends AbstractController
     }
 
      // Route pour afficher une recette spécifique et gérer les notes
+    //  #[Security("is_granted('ROLES_USER') and (recipe.getIsPublic === true || user === recipe.getUser ())")]
      #[Route('/{id}/', name: 'show', methods: ['GET', 'POST'])]
      public function show(Recipe $recipe, Request $request, MarkRepository $markRepository, EntityManagerInterface $manager) : Response
      {
