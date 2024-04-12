@@ -9,11 +9,20 @@
   <div class="card border shadow-sm p-3 w-75 mx-auto">
     <div class="row justify-content-center">
       <div class="col">
-        <h1 class="mt-4 text-center titre-recette">{{ recipe.name }}</h1>
 
-        <div class="recipe__image">
-          <img style="max-width: 500px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+
+      {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-4">
+           {{ message }}
         </div>
+      {% endfor %}
+
+        <h1 class="mt-4 text-center titre-recette">{{ recipe.name }}</h1>
+        
+
+          <div class="recipe__image">
+            <img style="max-width: 500px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+          </div>
 
         <p>La moyenne de cette recette est de {{ recipe.average }}/5</p>
 

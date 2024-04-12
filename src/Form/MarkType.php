@@ -5,12 +5,12 @@ namespace App\Form;
 use App\Entity\Mark;
 use App\Entity\Recipe;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType; // Type de champ pour les entités Doctrine
-use Symfony\Component\Form\AbstractType; // Classe abstraite pour la création de formulaires
+use Symfony\Bridge\Doctrine\Form\Type\EntityType; 
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType; // Type de champ pour une liste déroulante
 use Symfony\Component\Form\Extension\Core\Type\SubmitType; // Type de champ pour un bouton de soumission
-use Symfony\Component\Form\FormBuilderInterface; // Interface pour la construction de formulaires
-use Symfony\Component\OptionsResolver\OptionsResolver; // Classe pour la configuration des options des formulaires
+use Symfony\Component\Form\FormBuilderInterface; 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MarkType extends AbstractType
 {

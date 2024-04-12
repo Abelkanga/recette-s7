@@ -37,6 +37,30 @@ class RecipeController extends AbstractController
         ]);
     }
 
+    #[Route('/publique/', name: 'recipe.index.public', methods: ['GET'])]
+    public function indexPublic(RecipeRepository $repository, PaginatorInterface $paginator, Request $request ) : Response
+    {
+        $recipe = $paginator->paginate(
+            $repository->findPublicRecipe(null),
+            $request->query->getInt('page', 1),
+            10
+        );
+      
+        return $this->render('pages/recipe/index_public.html.twig', [
+            'recipe' => $recipe,
+        ]
+    
+    );
+    }
+
+    /**
+     * This controller allow us to see a recipe if this one is public
+     * 
+     * @param Recipe $recipe
+     * @Return Response
+     */
+
+
     // Route pour créer une nouvelle recette
     #[Route('/nouveau', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $manager): Response 
@@ -66,7 +90,6 @@ class RecipeController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
      // Route pour afficher une recette spécifique et gérer les notes
     //  #[Security("is_granted('ROLES_USER') and (recipe.getIsPublic === true || user === recipe.getUser ())")]
      #[Route('/{id}/', name: 'show', methods: ['GET', 'POST'])]
@@ -100,7 +123,7 @@ class RecipeController extends AbstractController
                  'success',
                  'Votre note a bien été prise en compte.'
              );
-            return $this->redirectToRoute('recipe.show', ['id' => $recipe->getId()]);
+            return $this->redirectToRoute('show', ['id' => $recipe->getId()]);
          }
  
          // Afficher la recette et le formulaire de saisie de note
@@ -153,5 +176,7 @@ class RecipeController extends AbstractController
         );
         return $this->redirectToRoute('recipe_index');
     }
+
+   
 }
 

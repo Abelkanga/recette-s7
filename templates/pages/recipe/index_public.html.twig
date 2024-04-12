@@ -1,0 +1,64 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}SymRecipe - Mes Recettes{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+  {% if not recipe.items is same as ([]) %}
+    <h1>Recettes de la communauté</h1>
+      <div class="d-flex justify-content-center flex-wrap">
+       
+      {% for recipe in recipe %}
+        <div class="card border-primary mb-3 ml-2" style="max-width: 20rem;">
+          <div class="card-header">Recette n°{{ recipe.id }}</div>
+          <div class="card-body">
+            <h4 class="card-title">{{ recipe.name }}</h4>
+            <p class="card-text">{{ recipe.description |slice(0, 100) ~ '...' }}</p>
+          </div>
+        </div>
+      {% endfor %}
+
+      </div>
+      
+    
+
+  {% else %}
+    <h4>Il n'y a pas de recettes</h4>
+  {% endif %}
+    
+</div>
+{% endblock %} #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  SymRecipe - Mes Recettes
+{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+  {% if not recipe.items is same as ([]) %}
+    <h1 class="text-center">Recettes de la communauté</h1>
+    <div class="row justify-content-center">
+      {% for recipe in recipe %}
+      <div class="col-md-4 mb-4">
+        <div class="card border-primary">
+          <div class="card-header bg-primary text-white">
+            Recette n°{{ recipe.id }}
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">{{ recipe.name }}</h4>
+            <p class="card-text">{{ recipe.description |slice(0, 100) ~ '...' }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="text-center">
+      <h4>Il n'y a pas de recettes</h4>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
+

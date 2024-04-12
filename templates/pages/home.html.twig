@@ -21,13 +21,36 @@
 				<div class="card-header">
 					<h1>Bienvenue sur SymRecipe</h1>
 				</div>
-			<div class="card-body">
+				<div class="card-body">
 					<h3 class="card-title">SymRecipe est une application qui va te permettre de créer des recettes à base d'ingrédients que tu auras toi-même créés.</h3>
 					<p class="card-text"><h5>Tu pourras partager tes recettes avec la communauté du site ou les garder en privé.</h5></p>
 					<a href="#" class="btn btn-primary">Aller c'est parti !</a>
+				</div>
 			</div>
+
+			<div class="recipe">
+			<h2 class="mt-4 text-center">Les 3 meilleures recettes de la communauté</h2>
+				<div class="row justify-content-center">
+					{% for recipe in recipe %}
+						<div class="col-md-4 mb-4">
+							<div class="card border-primary">
+								<div class="card-header bg-primary text-white">
+									Recette n°{{ recipe.id }}
+								</div>
+
+								<div class="card-body">
+									<h4 class="card-title">{{ recipe.name }}</h4>
+									<p class="card-text">{{ recipe.description |slice(0, 100) ~ '...' }}</p>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
 			</div>
+
 		</div>
+
+		
 
 
 {% endblock %}
