@@ -7,9 +7,10 @@ use App\Form\IngredienType;
 use App\Repository\IngredienRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -66,6 +67,7 @@ class IngredienController extends AbstractController
 
     // Route pour éditer un ingrédient existant
     #[Route('/ingredien/edition/{id}', name: 'ingredien_edit', methods: ['GET', 'POST'])]
+    #[Security("is_granted('ROLE_USER') and user === ingredien.getUser()")]
     public function edit(Ingredien $ingredien, Request $request, EntityManagerInterface $manager): Response
     {
         // Créer un formulaire pour l'édition de l'ingrédient existant
@@ -93,6 +95,7 @@ class IngredienController extends AbstractController
 
     // Route pour supprimer un ingrédient
     #[Route('/ingredien/suppression/{id}', name: 'ingredien_delete', methods: ['GET'])]
+    #[Security("is_granted('ROLE_USER') and user === ingredien.getUser()")]
     public function delete(EntityManagerInterface $manager, Ingredien $ingredien): Response
     {
         // Supprimer l'ingrédient de la base de données

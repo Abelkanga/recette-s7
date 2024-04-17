@@ -130,31 +130,66 @@ class RecipeType extends AbstractType
                     new Assert\NotNull()
                 ]
             ])
+            ->add('isPublic', CheckboxType::class, [
+                'attr' => [
+                    'class' => 'form-check-input',
+                 
+                ],
+                'required' => false,
+                'label' => 'Public ?',
+                'label_attr' => [
+                    'class' => 'form-check-label'
+                ],
+                'constraints' => [
+                    new Assert\NotNull()
+                ]
+            ])
             ->add('imageFile', VichImageType::class, [
                 'label'=> 'Image de la recette',
                 'label_attr' => [
                     'class'=> 'form-label mt-4'
                 ],
             ])
-            ->add('ingredien', EntityType::class, [
+            // ->add('ingredien', EntityType::class, [
+            //     'class' => Ingredien::class, 
+            //     'query_builder' => function (IngredienRepository $r) { 
+            //         return $r->createQueryBuilder('i')
+            //             ->orderBy('i.name', 'ASC'); 
+            //     },
+            //     'label' => 'Les ingrédients',
+            //     'label_attr' => [
+            //         'class' => 'form-label mt-4'
+            //     ],
+            //     'choice_label' => 'name', 
+            //     'multiple' => true,
+            //     'expanded' => true, 
+            // ]) code de base
+
+                    //copilot,telegram code
+                  ->add('ingredien', EntityType::class, [
                 'class' => Ingredien::class, // Entité liée au champ
-                'query_builder' => function (IngredienRepository $r) { // Constructeur de requête pour récupérer les ingrédients
-                    return $r->createQueryBuilder('i')
-                        ->orderBy('i.name', 'ASC'); // Tri par ordre alphabétique des noms d'ingrédients
+                'query_builder' => function (IngredienRepository $repository) {
+                    return $repository->createQueryBuilder('i')
+                        ->orderBy('i.name', 'ASC'); 
                 },
-                'label' => 'Les ingrédients', // Étiquette du champ
+                'label' => 'Les ingrédients', 
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'choice_label' => 'name', // Propriété de l'entité à afficher dans la liste déroulante
-                'multiple' => true, // Permet la sélection multiple
-                'expanded' => true, // Affiche les options sous forme de cases à cocher
-            ])
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => false, 
+            ]) 
+
+        
+        
+
+
             ->add('submit', SubmitType::class , [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ],
-                'label' => 'Créer ma recette' // Étiquette du bouton de soumission
+                'label' => 'Créer ma recette' 
             ]);
 
     }

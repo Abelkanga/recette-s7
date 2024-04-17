@@ -2,14 +2,15 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Ingredien;
-use App\Entity\Recipe;
-use App\Entity\User;
-use App\Entity\Mark;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use Faker\Generator;
 use Faker\Factory;
+use App\Entity\Mark;
+use App\Entity\User;
+use Faker\Generator;
+use App\Entity\Recipe;
+use App\Entity\Contact;
+use App\Entity\Ingredien;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -95,6 +96,18 @@ class AppFixtures extends Fixture
 
             $manager->persist($mark);
         }
+    }
+
+    // Contact
+    for ($i=0; $i < 5 ; $i++) { 
+        $contact = new Contact();
+        $contact->setFullName($this->faker->name())
+            ->setEmail($this->faker->email())
+            ->setSubject('Demande n°' . ($i +1))
+            ->setMessage($this->faker->text());
+
+        $manager->persist($contact);
+        
     }
 
     // Enregistrement des données dans la base de données

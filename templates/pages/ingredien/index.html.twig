@@ -18,7 +18,7 @@
     {% endfor %}
 
     <div class="count mt-4 d-flex justify-content-between">
-      <span>Il y a {{ ingredien.getTotalItemCount }} ingrédients</span>
+      <span>Il y a {{ ingredien.getTotalItemCount }} ingrédient(s)</span>
       {{ knp_pagination_render(ingredien) }}
     </div>
 
@@ -38,7 +38,7 @@
           <tr>
             <th scope="row">{{ ingredien.id }}</th>
             <td>{{ ingredien.name }}</td>
-            <td>{{ ingredien.price }}</td>
+            <td>{{ ingredien.price|number_format(2, ',', ',')  }} $</td>
             <td>{{ ingredien.createdAt |date('d/m/Y') }}</td>
             <td>
               <a href="{{ path('ingredien_edit', {id: ingredien.id}) }}" class="btn btn-sm btn-info">Modifier</a>

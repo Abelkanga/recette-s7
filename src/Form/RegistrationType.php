@@ -53,6 +53,10 @@ class RegistrationType extends AbstractType
                     'minlength' => '2',
                     'maxlength' => '180',
                 ],
+                'label'=> 'Adresse email',
+                'label_attr' => [
+                    'class'=> 'form-label mt-4'
+                    ],
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Email(),

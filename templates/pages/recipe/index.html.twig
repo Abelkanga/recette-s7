@@ -10,6 +10,7 @@
     <a href="{{ path('recipe_new') }}" class="btn btn-primary float-right">
       Créer une recette
     </a>
+   
 
     {% for message in app.flashes('success') %}
       <div class="alert alert-success mt-4">
@@ -18,7 +19,7 @@
     {% endfor %}
 
     <div class="count mt-4 d-flex justify-content-between">
-      <span>Il y a {{ recipe.getTotalItemCount }} recettes</span>
+      <span>Il y a {{ recipe.getTotalItemCount }} recette(s)</span>
       {{ knp_pagination_render(recipe) }}
     </div>
 
@@ -43,7 +44,7 @@
               {% if recipe.price is null %}
                 Non renseigné
               {% else %}
-                {{ recipe.price }}
+                {{ recipe.price|number_format(2, ',', ',')  }} $
               {% endif %}
             </td>
             <td>
@@ -62,8 +63,15 @@
             </td>
           </tr>
         {% endfor %}
+
       </tbody>
     </table>
+    
+    
+    <a href="{{ path('recipe_index') }}" class="btn btn-primary float-right">
+        Noter cette recette
+    </a>
+    
   </div>
 </div>
 {% endblock %}
