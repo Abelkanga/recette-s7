@@ -71,6 +71,7 @@ class RecipeType extends AbstractType
                     new Assert\LessThan(51)
                 ]
             ])
+            
             ->add('difficulty', RangeType::class, [
                 'attr' => [
                     'class' => 'form-range',
@@ -182,6 +183,7 @@ class RecipeType extends AbstractType
             ]) 
 
         
+            
         
 
 

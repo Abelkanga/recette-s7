@@ -87,6 +87,7 @@ class IngredienController extends AbstractController
             return $this->redirectToRoute('ingredien_index');
         }
 
+        
         // Afficher le formulaire d'édition de l'ingrédient
         return $this->render('pages/ingredien/edit.html.twig', [
             'form' => $form->createView()

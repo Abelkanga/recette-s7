@@ -1,19 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SymRecipe - Contact{% endblock %}
+{% block title %}
+    SymRecipe - Contact
+{% endblock %}
 
 {% block body %}
     <div class="container">
+        <h1>Formulaire de contact</h1>
 
-    <h1>Formulaire de contact</h1>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success mt-4">
+                {{ message }}
+            </div>
+        {% endfor %}
 
-        
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success mt-4">
-        {{ message }}
+        <div class="card">
+            <div class="card-body">
+                {{ form(form) }}
+            </div>
         </div>
-    {% endfor %}
-
-        {{ form(form)}}
     </div>
 {% endblock %}
