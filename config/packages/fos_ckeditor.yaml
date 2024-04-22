@@ -1,0 +1,46 @@
+fos_ck_editor:
+    configs:
+        main_config:
+            toolbar:
+                - {
+                    name: "styles",
+                    items:
+                    [
+                        "Bold",
+                        "Italic",
+                        "Underline",
+                        "Strike",
+                        "Blockquote",
+                        "-",
+                        "Link",
+                        "-",
+                        "RemoveFormat",
+                        "-",
+                        "NumberedList",
+                        "BulletedList",
+                        "-",
+                        "Outdent",
+                        "Indent",
+                        "-",
+                        "-",
+                        "JustifyLeft",
+                        "JustifyCenter",
+                        "JustifRight",
+                        'Justifie block',
+                        "-",
+                        "Image",
+                        "Table",
+                        "-",
+                        "Styles",
+                        "Format",
+                        "Front",
+                        "Fontsize",
+                        "-",
+                        "TextColor",
+                        "BGColor",
+                        "Source",
+
+
+                    ]
+
+                }
