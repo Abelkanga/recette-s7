@@ -32,7 +32,7 @@
 
         <div class="mt-4">
           {% if recipe.time %}
-            <p>Temps (en minute) : {{ recipe.time }}</p>
+            <p>Temps (en minute) : {{ recipe.time|min_to_hour}}</p>
           {% else %}
             <p>Temps : non renseigné</p>
           {% endif %}
@@ -48,7 +48,7 @@
 
         <div class="mt-4">
           {% if recipe.price %}
-            <p>Prix (en FCFA) : {{ recipe.price }}</p>
+            <p>Prix : {{ recipe.price }}</p>
           {% else %}
             <p>Prix : non renseigné</p>
           {% endif %}
@@ -73,12 +73,33 @@
 
 {% block stylesheets %}
   <style>
+
+    body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+.recipe__image img {
+  max-width: 100%; /* Assure que l'image ne dépasse pas la largeur du conteneur */
+  height: auto; /* Garde le ratio de l'image */
+  border: 2px solid #ccc; /* Bordure de 2 pixels de couleur grise */
+  border-radius: 8px; /* Ajoute un léger arrondi aux coins de l'image */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère autour de l'image */
+}
+.recipe__image {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+
+
     .titre-recette {
       font-family: Arial, sans-serif;
       font-size: 24px;
       font-weight: bold;
       color: #333;
       text-align: center;
+     
     }
   </style>
 {% endblock %}
