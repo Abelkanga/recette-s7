@@ -67,7 +67,7 @@ class IngredienController extends AbstractController
 
     // Route pour éditer un ingrédient existant
     #[Route('/ingredien/edition/{id}', name: 'ingredien_edit', methods: ['GET', 'POST'])]
-    #[Security("is_granted('ROLE_USER') and user === ingredien.getUser()")]
+    // #[Security("is_granted('ROLE_USER') and user === ingredien.getUser()")]
     public function edit(Ingredien $ingredien, Request $request, EntityManagerInterface $manager): Response
     {
         // Créer un formulaire pour l'édition de l'ingrédient existant

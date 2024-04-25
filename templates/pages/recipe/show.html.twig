@@ -23,7 +23,7 @@
           <div class="recipe__image">
             <img style="max-width: 500px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
           </div>
-
+          <hr class="my-2">
         <p>La moyenne de cette recette est de {{ recipe.average }}/5</p>
 
         <div>
@@ -70,6 +70,7 @@
     </div>
   </div>
 </div>
+
 
 {% block stylesheets %}
   <style>

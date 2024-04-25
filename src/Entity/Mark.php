@@ -4,8 +4,9 @@ namespace App\Entity;
 
 use App\Repository\MarkRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 // Déclaration de l'entité Mark avec son repository associé
 #[ORM\Entity(repositoryClass: MarkRepository::class)]
@@ -25,8 +26,8 @@ class Mark
 
     // Note attribuée à la recette avec des contraintes de validation
     #[ORM\Column]
-    #[Assert\Positive(6)]
-    #[Assert\LessThan]
+    #[Assert\Positive()]
+    #[Assert\LessThan(6)]
     private ?int $mark = null;
 
     // Utilisateur ayant donné la note

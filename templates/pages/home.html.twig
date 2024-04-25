@@ -1,52 +1,90 @@
 {% extends "base.html.twig" %}
 
-{% block title %}SymRecipe - Accueil
+{% block title %}SymRecipe - Accueil{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .card {
+            transition: transform .2s;
+        }
+        .card:hover {
+            transform: scale(1.02);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .card-header {
+            background-color: #007bff;
+            color: black;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+		@keyframes marquee {
+            0%   { text-indent: 100% }
+            100% { text-indent: -100% }
+        }
+
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: marquee 10s linear infinite;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
+	<div class="jumbotron jumbotron-fluid">
+        <div class="border p-4">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h1 class="display-4">Bienvenue sur SymRecipe</h1>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">SymRecipe est une application qui va te permettre de créer des recettes à base d'ingrédients que tu auras toi-même créés.</h3>
+                    <hr class="my-4">
+                    <p class="card-text ">
+                        <h5 class="lead">Tu pourras partager tes recettes avec la communauté du site ou les garder en privé.</h5>
+                    </p>
+                    <a href="{{ path('recipe_recipe_community')}}" class="btn btn-primary">Aller c'est parti !</a>
+                </div>
+            
 
-	{# <div class="container mt-4"> #}
-	<div class="jumbotron mt-4">
-		<div class="border p-4">
-			<div class="card text-center">
-				<div class="card-header">
-					<h1>Bienvenue sur SymRecipe</h1>
-				</div>
-				<div class="card-body">
-					<h3 class="card-title">SymRecipe est une application qui va te permettre de créer des recettes à base d'ingrédients que tu auras toi-même créés.</h3>
-					<hr class="my-4">
-					<p class="card-text">
-						<h5>Tu pourras partager tes recettes avec la communauté du site ou les garder en privé.</h5>
-					</p>
-					<a href="{{ path('recipe_recipe_community')}}" class="btn btn-primary">Aller c'est parti !</a>
-				</div>
-			</div>
-
-			<div class="recipe mt-4">
-				<h2 text align="center">Les recettes récentes de la communauté</h2>
-				<div class="row justify-content-center">
-					{% for recipe in recipe %}
-						<div class="col-md-4 mb-4">
-							<div class="card border-primary" style="width: 18rem;">
-								<img src="{{ vich_uploader_asset(recipe, 'imageFile') }}" class="card-img-top" alt="{{ recipe.name }} image de recette">
-								<div class="card-header bg-primary text-white">
-									Recette n°{{ recipe.id }}
-								</div>
-								<div class="card-body">
-									<h4 class="card-title">
-										<a href="{{ path('recipe_show', {id: recipe.id}) }}">
-											{{ recipe.name }}
-										</a>
-									</h4>
-									<p class="card-text">{{ recipe.description |slice(0, 100) ~ '...' }}</p>
-								</div>
-							</div>
-						</div>
-					{% endfor %}
-				</div>
-			</div>
-
-		</div>
-	</div>
-
+            <div class="recipe container mt-4">
+                <h2 class="text-center marquee">Les recettes récentes de la communauté</h2>
+                <div class="row justify-content-center">
+                    {% for recipe in recipe %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card border-primary" style="width: 18rem;">
+                                <img src="{{ vich_uploader_asset(recipe, 'imageFile') }}" class="card-img-top" alt="{{ recipe.name }} image de recette">
+                                <div class="card-header bg-primary text-white">
+                                    Recette n°{{ recipe.id }}
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="{{ path('recipe_show', {id: recipe.id}) }}">
+                                            {{ recipe.name }}
+                                        </a>
+                                    </h4>
+                                    <p class="card-text">{{ recipe.description |slice(0, 100) ~ '...' }}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Mise à jour il y a 3 minutes</small>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            </div>
+        </div>
+		
+    </div>
 {% endblock %}

@@ -151,24 +151,9 @@ class RecipeType extends AbstractType
                     'class'=> 'form-label mt-4'
                 ],
             ])
-            // ->add('ingredien', EntityType::class, [
-            //     'class' => Ingredien::class, 
-            //     'query_builder' => function (IngredienRepository $r) { 
-            //         return $r->createQueryBuilder('i')
-            //             ->orderBy('i.name', 'ASC'); 
-            //     },
-            //     'label' => 'Les ingrédients',
-            //     'label_attr' => [
-            //         'class' => 'form-label mt-4'
-            //     ],
-            //     'choice_label' => 'name', 
-            //     'multiple' => true,
-            //     'expanded' => true, 
-            // ]) code de base
-
-                    //copilot,telegram code
+          
                   ->add('ingredien', EntityType::class, [
-                'class' => Ingredien::class, // Entité liée au champ
+                'class' => Ingredien::class,
                 'query_builder' => function (IngredienRepository $repository) {
                     return $repository->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC'); 
