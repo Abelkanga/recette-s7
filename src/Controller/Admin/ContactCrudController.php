@@ -22,7 +22,6 @@ class ContactCrudController extends AbstractCrudController
 
 
 
-
     public function configureCrud(Crud $crud): Crud
     {
         
@@ -48,6 +47,8 @@ class ContactCrudController extends AbstractCrudController
             TextField::new('fullName'),
             TextField::new('email'),
             TextareaField::new('message')
+
+            
                 ->setFormType(CKEditorType::class)
                 ->hideOnIndex(),                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
             DateTimeField::new('createdAt')

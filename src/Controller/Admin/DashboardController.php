@@ -26,7 +26,6 @@ class DashboardController extends AbstractDashboardController
             ->setTitle('SymRecipe - Administration')
             ->renderContentMaximized();
     }
-
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');

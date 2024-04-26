@@ -65,15 +65,15 @@ class AppFixtures extends Fixture
     }
 
     // Génération des ingrédients
-    $ingredients = [];
+    $ingredien = [];
     for ($i = 1; $i <= 50; $i++) {
-        $ingredient = new Ingredien();
-        $ingredient->setName($this->faker->word())
+        $ingredien = new Ingredien();
+        $ingredien->setName($this->faker->word())
             ->setPrice(mt_rand(1, 100))
             ->setUser($users[mt_rand(0, count($users) - 1)]);
 
-        $manager->persist($ingredient);
-        $ingredients[] = $ingredient;
+        $manager->persist($ingredien);
+        $ingrediens[] = $ingredien;
     }
 
     // Génération des recettes
@@ -91,7 +91,7 @@ class AppFixtures extends Fixture
             ->setUser($users[mt_rand(0, count($users) - 1)]);
 
         for ($k = 0; $k < mt_rand(5, 15); $k++) {
-            $recipe->addIngredien($ingredients[mt_rand(0, count($ingredients) - 1)]);
+            $recipe->addIngredien($ingredien[mt_rand(0, count($ingredien) - 1)]);
         }
 
         $recipes[] = $recipe; 

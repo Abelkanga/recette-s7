@@ -58,6 +58,11 @@
           {{ recipe.description | raw }}
         </div>
 
+        {# <div>
+          {{ app.user.getFullName}}
+        </div> #}
+
+
         <p class="mt-4">Ingrédients</p>
         {% for ingredien in recipe.ingredien %}
           <span class="badge bg-primary"> {{ ingredien.name }} </span>

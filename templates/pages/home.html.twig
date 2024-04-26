@@ -74,6 +74,7 @@
                                         </a>
                                     </h4>
                                     <p class="card-text">{{ recipe.description |slice(0, 100) ~ '...' }}</p>
+                                    
                                 </div>
                                 <div class="card-footer">
                                     <small class="text-muted">Mise à jour il y a 3 minutes</small>
@@ -88,3 +89,10 @@
 		
     </div>
 {% endblock %}
+{# {% if app.user %}
+    <div class="card-footer">
+        
+        <small class="text-muted"> {{ app.user.getFullName}}</small>
+    </div>
+{% endif %}
+</div> #}
